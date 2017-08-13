@@ -1,14 +1,12 @@
 import { ENTITIES } from './constants'
 
-const stateTokenizer = ({ goals, hazards, board: { rows, cols }, robson: { r, c, dead } }) =>
+const stateTokenizer = ({ enemy, board: { rows, cols }, robson }) =>
   [...Array(rows).keys()].map((row: number) =>
     [...Array(cols).keys()].map(
       (col: number) =>
-        r === row && c === col && !dead
-          ? ENTITIES.ROBSON
-          : goals.includes(row * cols + col)
-            ? ENTITIES.GOAL
-            : hazards.includes(row * cols + col) ? ENTITIES.HAZARD : ENTITIES.EMPTY,
+        enemy.includes(row * cols + col)
+          ? ENTITIES.ENEMY
+          : robson.includes(row * cols + col) ? ENTITIES.ROBSON : ENTITIES.EMPTY,
     ),
   )
 

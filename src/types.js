@@ -1,10 +1,15 @@
 // @flow
-export type Action = '←' | '→' | '↓' | '↑'
-
-export type Entity = '💀' | '⬚' | '❤' | '🤖'
+export type Position = number
+export type Action = Position
+export type Enemy = '💀'
+export type Empty = '⬚'
+export type Robson = '🤖'
+export type Player = Enemy | Robson
+export type Entity = Player | Empty
 export type State = {|
-  robson: { r: number, c: number, dead: boolean },
   board: { rows: number, cols: number },
-  hazards: Array<number>,
-  goals: Array<number>,
+  robson: Array<Position>,
+  enemy: Array<Position>,
+  turn: Player,
+  winner: Entity,
 |}

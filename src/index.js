@@ -11,12 +11,7 @@ import final from './final'
 import act from './act'
 
 const game = { actions, reward, final, act }
-const initial = state.init(
-  [3, 3], // board
-  [0, 0], // robson
-  [[0, 2], [2, 2]], // goals
-  [[0, 1], [2, 1]], // hazards
-)
+const initial = state.init({ size: 5 })
 
 const α = 0.9 // learning rate
 const γ = 0.9 // discount factor
@@ -27,6 +22,4 @@ markov()
   .policies(egreedy(ε), greedy)
   .game(game, initial)
   .train(10, α, γ)
-  .play((
-    e, // eslint-disable-next-line no-console
-  ) => console.log(format.episode(e)))
+  .play(console.log)

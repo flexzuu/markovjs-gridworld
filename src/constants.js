@@ -1,17 +1,12 @@
 // @flow
-import type { Action, Entity } from './types'
+import type { Entity, Empty, Robson, Enemy } from './types'
 
-const ACTIONS: { [string]: Action } = {
-  DOWN: '↓',
-  LEFT: '←',
-  RIGHT: '→',
-  UP: '↑',
-}
-
+const EMPTY: Empty = '⬚'
+const ENEMY: Enemy = '💀'
+const ROBSON: Robson = '🤖'
 const ENTITIES: { [string]: Entity } = {
-  EMPTY: '⬚',
-  GOAL: '❤',
-  HAZARD: '💀',
-  ROBSON: '🤖',
+  EMPTY,
+  ENEMY,
+  ROBSON,
 }
-export { ACTIONS, ENTITIES }
+export { ENTITIES, EMPTY, ROBSON, ENEMY }
