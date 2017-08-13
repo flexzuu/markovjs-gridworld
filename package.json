@@ -27,12 +27,16 @@
     "babel-preset-env": "^1.6.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-flowtype": "^2.28.2",
     "eslint-plugin-import": "^2.2.0",
-    "flow-bin": "^0.36.0"
+    "eslint-plugin-prettier": "^2.1.2",
+    "flow-bin": "^0.36.0",
+    "prettier": "^1.5.3"
   },
   "scripts": {
     "build": "babel src -d lib",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "check:style": "eslint ./src",
     "check:types": "flow",
     "start:dev": "babel-node ./src/index.js",

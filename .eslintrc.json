@@ -1,10 +1,20 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb-base",
-  "plugins": [
-    "flowtype"
-  ],
+  "extends": ["airbnb-base", "prettier", "prettier/flowtype"],
+  "plugins": ["flowtype", "prettier"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "semi": false,
+        "printWidth": 100,
+        "parser": "flow"
+      }
+    ],
     "no-nested-ternary": 0,
     "flowtype/define-flow-type": 1
   }
