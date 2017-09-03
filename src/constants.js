@@ -2,11 +2,11 @@
 import type { ReRoll } from './types'
 
 const REROLL_ACTIONS: Array<ReRoll> = [
-  1,
-  2,
-  3,
-  4,
-  5,
+  [1],
+  [2],
+  [3],
+  [4],
+  [5],
   [1, 2],
   [1, 3],
   [1, 4],

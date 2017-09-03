@@ -1,25 +1,5 @@
-import { ENTITIES } from './constants'
-
-const stateTokenizer = ({ goals, hazards, board: { rows, cols }, robson: { r, c, dead } }) =>
-  [...Array(rows).keys()].map((row: number) =>
-    [...Array(cols).keys()].map(
-      (col: number) =>
-        r === row && c === col && !dead
-          ? ENTITIES.ROBSON
-          : goals.includes(row * cols + col)
-            ? ENTITIES.GOAL
-            : hazards.includes(row * cols + col) ? ENTITIES.HAZARD : ENTITIES.EMPTY,
-    ),
-  )
-
-const transitionTokenizer = ({ action, gameState: { robson: { r, c } }, nextGameState }) => {
-  const tokens = stateTokenizer(nextGameState)
-  tokens[r][c] = action
-  return tokens
-}
-
-const state = s => stateTokenizer(s).map(a => a.join(' ')).join('\n')
-const transition = t => transitionTokenizer(t).map(a => a.join(' ')).join('\n')
-const episode = e => [...e].map(t => transition(t)).join('\n\n')
+const state = s => `STATE: ${JSON.stringify(s, null, 2)}`
+const transition = t => `TRANSITION: ${JSON.stringify(t, null, 2)}`
+const episode = e => `EPISODE: ${JSON.stringify(e, null, 2)}`
 
 export { state, transition, episode }

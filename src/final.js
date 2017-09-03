@@ -1,8 +1,5 @@
 // @flow
 import type { State } from './types'
+import { getNullKeys } from './utils'
 
-const defeat = (state: State): boolean => state.robson.dead
-const victory = (state: State): boolean => state.goals.length === 0
-
-export default (state: State): boolean => defeat(state) || victory(state)
-export { defeat, victory }
+export default (state: State): boolean => getNullKeys(state.result).length === 0

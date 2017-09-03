@@ -1,32 +1,59 @@
 // @flow
-import type { Action, State } from './types'
+import { isArray } from 'lodash'
+import type { Action, State, ReRoll, DicesRoll } from './types'
 import { ACTIONS } from './constants'
 import { create } from './state'
+import { rollAll, roll as rollDice } from './dice'
 
-export default ({ board, robson: { r, c }, goals, hazards }: State, action: Action): State => {
-  const dr =
-    {
-      [ACTIONS.UP]: -1,
-      [ACTIONS.DOWN]: +1,
-    }[action] || 0
+function sum(res, v) {
+  return res + v
+}
+function getResult({ rate, roll }) {
+  switch (rate) {
+    case 'one':
+      return roll.filter(v => v === 1).reduce(sum, 0)
+    case 'two':
+      return roll.filter(v => v === 2).reduce(sum, 0)
+    case 'three':
+      return roll.filter(v => v === 3).reduce(sum, 0)
+    case 'four':
+      return roll.filter(v => v === 4).reduce(sum, 0)
+    case 'five':
+      return roll.filter(v => v === 5).reduce(sum, 0)
+    case 'six':
+      return roll.filter(v => v === 6).reduce(sum, 0)
+    default:
+      return 0
+  }
+}
 
-  const dc =
-    {
-      [ACTIONS.LEFT]: -1,
-      [ACTIONS.RIGHT]: +1,
-    }[action] || 0
-
-  const nextR = r + dr === -1 || r + dr === board.rows ? r : r + dr
-  const nextC = c + dc === -1 || c + dc === board.cols ? c : c + dc
-
-  const index = nextR * board.cols + nextC
-  const nextDead = hazards.includes(index)
-  const nextGoals = goals.filter(g => g !== index)
-
-  return create({
-    robson: { r: nextR, c: nextC, dead: nextDead },
-    goals: nextGoals,
-    hazards,
-    board,
+function reroll({ toReroll, oldRoll }): DicesRoll {
+  return oldRoll.map((value, index) => {
+    const shouldReRoll: boolean = toReroll.includes(index)
+    return shouldReRoll ? rollDice() : value
   })
+}
+
+export default ({ numberOfRolls, result, roll }: State, action: Action): State => {
+  switch (action.type) {
+    case 'rate':
+      return create({
+        numberOfRolls: 1,
+        roll: rollAll(),
+        result: {
+          ...result,
+          [action.rate]: getResult({ rate: action.rate, roll: phaseState.roll }),
+        },
+      })
+    case 'reroll':
+      if (numberOfRolls >= 3) throw Error(`numberOfRolls should be 2 or less`)
+      return create({
+        numberOfRolls: numberOfRolls + 1,
+        roll: reroll({ toReroll: action.reroll, oldRoll: roll }),
+        result,
+      })
+
+    default:
+      throw Error(`unknown action.type: ${action.type}`)
+  }
 }

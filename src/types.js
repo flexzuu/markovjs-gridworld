@@ -4,7 +4,7 @@ export type ActionRate = {|
   type: 'rate',
   rate: Rating,
 |}
-export type ReRollOne = 1 | 2 | 3 | 4 | 5
+export type ReRollOne = [1] | [2] | [3] | [4] | [5]
 export type ReRollTwo =
   | [1, 2]
   | [1, 3]
@@ -33,20 +33,12 @@ export type ReRoll = ReRollOne | ReRollTwo | ReRollThree | ReRollFour | ReRollFi
 export type ActionReRoll = {|
   type: 'reroll',
   reroll: ReRoll,
-  rerollNumber: 1 | 2 | 3 | 4 | 5,
 |}
 export type Action = ActionRate | ActionReRoll
 export type Phase = 'dice' | 'select'
 export type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
 export type DicesRoll = [DiceRoll, DiceRoll, DiceRoll, DiceRoll, DiceRoll]
 export type NumberOfRolls = 1 | 2 | 3
-export type Dice = {|
-  numberOfRolls: NumberOfRolls,
-  roll: DicesRoll,
-|}
-export type Select = {|
-  roll: DicesRoll,
-|}
 export type Point = number | null
 export type Result = {|
   one: Point,
@@ -57,7 +49,7 @@ export type Result = {|
   six: Point,
 |}
 export type State = {|
-  phase: Phase,
-  phaseState: Dice | Select,
+  numberOfRolls: NumberOfRolls,
+  roll: DicesRoll,
   result: Result,
 |}
