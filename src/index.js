@@ -18,15 +18,15 @@ const initial = state.init(
   [[0, 1], [2, 1]], // hazards
 )
 
-const α = 0.9 // learning rate
-const γ = 0.9 // discount factor
-const ε = 0.1 // exploration rate
+const α = 0.8 // learning rate
+const γ = 0.8 // discount factor
+const ε = 0.2 // exploration rate
 
 markov()
   .memory(memory, memory.init(0.0))
   .policies(egreedy(ε), greedy)
   .game(game, initial)
-  .train(10, α, γ)
+  .train(10000, α, γ)
   .play((
     e, // eslint-disable-next-line no-console
   ) => console.log(format.episode(e)))

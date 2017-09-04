@@ -2,10 +2,22 @@
 import type { State } from './types'
 import { rollAll } from './dice'
 
+const getDefault = x => x || 0
 const proto = {
   toString(): string {
     const { result: { one, two, three, four, five, six }, numberOfRolls, roll } = (this: State)
-    return [one, two, three, four, five, six, numberOfRolls, ...roll].toString()
+    const memory = [
+      getDefault(one),
+      getDefault(two),
+      getDefault(three),
+      getDefault(four),
+      getDefault(five),
+      getDefault(six),
+      numberOfRolls,
+      ...roll,
+    ].toString()
+    // console.log(memory)
+    return memory
   },
 }
 

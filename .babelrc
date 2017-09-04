@@ -4,6 +4,11 @@
     "transform-flow-strip-types"
   ],
   "presets": [
-    "env"
+    "stage-2",
+    ["env", {
+      "targets": {
+        "node": "current"
+      }
+    }]
   ]
 }

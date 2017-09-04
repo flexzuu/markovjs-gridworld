@@ -42,7 +42,7 @@ export default ({ numberOfRolls, result, roll }: State, action: Action): State =
         roll: rollAll(),
         result: {
           ...result,
-          [action.rate]: getResult({ rate: action.rate, roll: phaseState.roll }),
+          [action.rate]: getResult({ rate: action.rate, roll }),
         },
       })
     case 'reroll':

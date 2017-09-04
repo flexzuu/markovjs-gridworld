@@ -1,5 +1,6 @@
 // @flow
+import { reduce } from 'lodash'
 import type { State } from './types'
 
 export default (state: State, prevState: State): number =>
-  prevState.goals.length - state.goals.length - (state.robson.dead ? 1 : 0) - 0.01
+  reduce(state.result, (prev, curr) => prev + (curr || 0), 0)
