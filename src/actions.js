@@ -10,12 +10,14 @@ export default (state: State): Array<Action> => {
     rate,
   }))
   if (state.numberOfRolls === 3) {
-    return rateActions
+    // console.log(rateActions)
+    return rateActions.map(a => JSON.stringify(a, null, 2))
   }
   const reRollActions: Array<ActionReRoll> = REROLL_ACTIONS.map(reroll => ({
     type: 'reroll',
     reroll,
   }))
   const diceActions = [...rateActions, ...reRollActions]
-  return diceActions
+  // console.log(diceActions)
+  return diceActions.map(a => JSON.stringify(a, null, 2))
 }

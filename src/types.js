@@ -1,5 +1,18 @@
 // @flow
-export type Rating = 'one' | 'two' | 'three' | 'four' | 'five' | 'six'
+export type Rating =
+  | 'one'
+  | 'two'
+  | 'three'
+  | 'four'
+  | 'five'
+  | 'six'
+  | 'dreierPasch'
+  | 'viererPasch'
+  | 'fullHouse'
+  | 'smallStreet'
+  | 'bigStreet'
+  | 'kniffel'
+  | 'chance'
 export type ActionRate = {|
   type: 'rate',
   rate: Rating,
@@ -47,6 +60,14 @@ export type Result = {|
   four: Point,
   five: Point,
   six: Point,
+  bonus: number,
+  dreierPasch: Point,
+  viererPasch: Point,
+  fullHouse: Point,
+  smallStreet: Point,
+  bigStreet: Point,
+  kniffel: Point,
+  chance: Point,
 |}
 export type State = {|
   numberOfRolls: NumberOfRolls,
