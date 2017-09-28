@@ -1,25 +1,20 @@
-import { ENTITIES } from './constants'
+export const episode = e =>
+  [...e].map(e => {
+    const data = {
+      action: e.action,
+      board: e.nextGameState
+        .get('board')
+        .map(r => r.map(t => (t ? t.toString().padStart(4) : '    ')).join(' '))
+        .join('\n'),
+      score: e.nextGameState.get('score'),
+      reward: e.reward,
+    }
+    const log = `___________________
+Action: ${data.action}
+${data.board}
 
-const stateTokenizer = ({ goals, hazards, board: { rows, cols }, robson: { r, c, dead } }) =>
-  [...Array(rows).keys()].map((row: number) =>
-    [...Array(cols).keys()].map(
-      (col: number) =>
-        r === row && c === col && !dead
-          ? ENTITIES.ROBSON
-          : goals.includes(row * cols + col)
-            ? ENTITIES.GOAL
-            : hazards.includes(row * cols + col) ? ENTITIES.HAZARD : ENTITIES.EMPTY,
-    ),
-  )
+Score: ${data.score}
+Reward: ${data.reward}`
 
-const transitionTokenizer = ({ action, gameState: { robson: { r, c } }, nextGameState }) => {
-  const tokens = stateTokenizer(nextGameState)
-  tokens[r][c] = action
-  return tokens
-}
-
-const state = s => stateTokenizer(s).map(a => a.join(' ')).join('\n')
-const transition = t => transitionTokenizer(t).map(a => a.join(' ')).join('\n')
-const episode = e => [...e].map(t => transition(t)).join('\n\n')
-
-export { state, transition, episode }
+    console.log(log)
+  })

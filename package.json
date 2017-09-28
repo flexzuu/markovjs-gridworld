@@ -7,7 +7,10 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "markovjs": "^0.1.3"
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.4",
+    "markovjs": "^0.1.3",
+    "markovjs-immutable": "^0.1.1"
   },
   "keywords": [
     "markov",
@@ -20,6 +23,8 @@
     "robson"
   ],
   "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "jest": "^21.2.1",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-syntax-flow": "^6.18.0",
@@ -35,6 +40,7 @@
     "prettier": "^1.5.3"
   },
   "scripts": {
+    "test": "jest",
     "build": "babel src -d lib",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "check:style": "eslint ./src",

@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create empty board 1`] = `
+Immutable.List [
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+]
+`;
+
+exports[`init state with a empty board 1`] = `
+Immutable.Map {
+  "board": Immutable.List [
+    Immutable.List [
+      null,
+      null,
+      null,
+      null,
+    ],
+    Immutable.List [
+      null,
+      null,
+      null,
+      null,
+    ],
+    Immutable.List [
+      null,
+      null,
+      null,
+      null,
+    ],
+    Immutable.List [
+      null,
+      null,
+      null,
+      null,
+    ],
+  ],
+  "score": 0,
+}
+`;
+
+exports[`place random Tile place 1 tile with value 2 in bottom right 1`] = `
+Immutable.List [
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    2,
+  ],
+]
+`;
+
+exports[`place random Tile place 1 tile with value 2 in top left 1`] = `
+Immutable.List [
+  Immutable.List [
+    2,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+]
+`;
+
+exports[`place random Tile place 1 tile with value 4 in bottom right 1`] = `
+Immutable.List [
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    4,
+  ],
+]
+`;
+
+exports[`place random Tile place no tile 1`] = `
+Immutable.List [
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+  Immutable.List [
+    null,
+    null,
+    null,
+    null,
+  ],
+]
+`;

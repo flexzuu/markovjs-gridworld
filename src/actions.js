@@ -1,5 +1,7 @@
 // @flow
+import { values, shuffle } from 'lodash'
 import type { Action } from './types'
 import { ACTIONS } from './constants'
 
-export default (): Array<Action> => (Object.values(ACTIONS): any)
+const availableActions = values(ACTIONS)
+export default (): Array<Action> => shuffle(availableActions)

@@ -1,5 +1,5 @@
 // @flow
-import type { Action, Entity } from './types'
+import type { Action } from './types'
 
 const ACTIONS: { [string]: Action } = {
   DOWN: '↓',
@@ -8,10 +8,4 @@ const ACTIONS: { [string]: Action } = {
   UP: '↑',
 }
 
-const ENTITIES: { [string]: Entity } = {
-  EMPTY: '⬚',
-  GOAL: '❤',
-  HAZARD: '💀',
-  ROBSON: '🤖',
-}
-export { ACTIONS, ENTITIES }
+export { ACTIONS }

@@ -1,26 +1,38 @@
 // @flow
+import { Map, List } from 'immutable'
 import type { State } from './types'
 
-const proto = {
-  toString(): string {
-    const { goals, robson: { r, c, dead } } = (this: State)
-    return [goals, r, c, dead].toString()
-  },
+export const createBoard = ({ size }) =>
+  List().setSize(size).map(() => List().setSize(size).map(() => null))
+
+export const placeRandomTilesFactory = random => ({ numberOfRandomTiles = 0, board }) => {
+  if (numberOfRandomTiles === 0 || board.flatten().filter(tile => !tile).size === 0) {
+    return board
+  }
+  // place one random tile
+  // we place a 2 or 4
+  const decider = random(0, 1, true)
+  const value = decider < 0.9 ? 2 : 4
+  const randomPosition = [random(board.size - 1), random(board.size - 1)]
+  const canPlaceTile = board.getIn(randomPosition) === null
+  // we need to place more tiles
+  if (canPlaceTile) {
+    const boardWithRandomTile = board.setIn(randomPosition, value)
+    return placeRandomTilesFactory(random)({
+      numberOfRandomTiles: numberOfRandomTiles - 1,
+      board: boardWithRandomTile,
+    })
+  }
+  // we cant place a tile here so we simply try again
+  return placeRandomTilesFactory(random)({ numberOfRandomTiles, board })
 }
 
-const create = (state: State): State => (Object.assign(Object.create(proto), state): any)
-
-const init = (
-  [rows, cols]: [number, number],
-  [r, c]: [number, number],
-  goals: Array<[number, number]>,
-  hazards: Array<[number, number]>,
-): State =>
-  create({
-    board: { rows, cols },
-    robson: { r, c, dead: false },
-    goals: goals.map(g => g[0] * cols + g[1]),
-    hazards: hazards.map(h => h[0] * cols + h[1]),
+export const init = ({ size, startTiles, random }): State => {
+  const emptyBoard = createBoard({ size })
+  const placeRandomTiles = placeRandomTilesFactory(random)
+  const board = placeRandomTiles({ numberOfRandomTiles: startTiles, board: emptyBoard })
+  return Map({
+    board,
+    score: 0,
   })
-
-export { init, create }
+}
