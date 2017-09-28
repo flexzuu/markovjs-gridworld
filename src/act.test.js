@@ -1,3 +1,4 @@
+import { Map, List } from 'immutable'
 import { reverseRows, swapBoard, actRight, actLeft, actDown, actUp } from './act'
 import { init } from './state'
 
@@ -8,6 +9,7 @@ describe('act right ->', () => {
     const newState = actRight(state)
     expect(newState.toJS()).toEqual({
       board: [[null, 4], [null, 4]],
+      final: false,
       score: 8,
     })
   })
@@ -16,7 +18,31 @@ describe('act right ->', () => {
     const newState = actRight(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, 4, 4], [null, null, 4, 4], [null, null, 4, 4], [null, null, 4, 4]],
+      final: false,
       score: 32,
+    })
+  })
+  test(`2    2    4    4
+                             2    2
+`, () => {
+    const state = initState(4).update('board', board =>
+      List([
+        List([2, 2, 4, 4]),
+        List([null, null, 2, 2]),
+        List([null, null, null, null]),
+        List([null, null, null, null]),
+      ]),
+    )
+    const newState = actRight(state)
+    expect(newState.toJS()).toEqual({
+      board: [
+        [null, null, 4, 8],
+        [null, null, null, 4],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      final: false,
+      score: 16,
     })
   })
   test('move a single 2', () => {
@@ -33,6 +59,7 @@ describe('act right ->', () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      final: false,
       score: 0,
     })
   })
@@ -46,6 +73,7 @@ describe('act right ->', () => {
     const newState = actRight(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [null, null, 4, 4], [null, null, 4, 4], [null, null, 4, 4]],
+      final: false,
       score: 24,
     })
   })
@@ -56,6 +84,7 @@ describe('act right ->', () => {
     const newState = actRight(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, 2, 4], [null, null, 2, 4], [null, null, 2, 4], [null, null, 2, 4]],
+      final: false,
       score: 16,
     })
   })
@@ -66,6 +95,7 @@ describe('act right ->', () => {
     const newState = actRight(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, 2, 4], [null, null, 2, 4], [null, null, 2, 4], [null, null, 2, 4]],
+      final: false,
       score: 16,
     })
   })
@@ -85,6 +115,7 @@ describe('act left <-', () => {
     const newState = actLeft(state)
     expect(newState.toJS()).toEqual({
       board: [[4, null], [4, null]],
+      final: false,
       score: 8,
     })
   })
@@ -93,6 +124,7 @@ describe('act left <-', () => {
     const newState = actLeft(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 4, null, null], [4, 4, null, null], [4, 4, null, null], [4, 4, null, null]],
+      final: false,
       score: 32,
     })
   })
@@ -106,6 +138,7 @@ describe('act left <-', () => {
     const newState = actLeft(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [4, 4, null, null], [4, 4, null, null], [4, 4, null, null]],
+      final: false,
       score: 24,
     })
   })
@@ -116,6 +149,7 @@ describe('act left <-', () => {
     const newState = actLeft(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 2, null, null], [4, 2, null, null], [4, 2, null, null], [4, 2, null, null]],
+      final: false,
       score: 16,
     })
   })
@@ -126,6 +160,7 @@ describe('act left <-', () => {
     const newState = actLeft(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 2, null, null], [4, 2, null, null], [4, 2, null, null], [4, 2, null, null]],
+      final: false,
       score: 16,
     })
   })
@@ -145,6 +180,7 @@ describe('act down', () => {
     const newState = actDown(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null], [4, 4]],
+      final: false,
       score: 8,
     })
   })
@@ -153,6 +189,7 @@ describe('act down', () => {
     const newState = actDown(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [null, null, null, null], [4, 4, 4, 4], [4, 4, 4, 4]],
+      final: false,
       score: 32,
     })
   })
@@ -166,6 +203,7 @@ describe('act down', () => {
     const newState = actDown(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [null, null, null, null], [2, 2, 2, 2], [4, 4, 4, 4]],
+      final: false,
       score: 16,
     })
   })
@@ -176,6 +214,7 @@ describe('act down', () => {
     const newState = actDown(state)
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [null, null, null, null], [null, 4, 4, 4], [null, 4, 4, 4]],
+      final: false,
       score: 24,
     })
   })
@@ -187,6 +226,7 @@ describe('act down', () => {
 
     expect(newState.toJS()).toEqual({
       board: [[null, null, null, null], [null, null, null, null], [4, 4, 4, null], [4, 4, 4, null]],
+      final: false,
       score: 24,
     })
   })
@@ -206,6 +246,7 @@ describe('act up', () => {
     const newState = actUp(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 4], [null, null]],
+      final: false,
       score: 8,
     })
   })
@@ -214,6 +255,7 @@ describe('act up', () => {
     const newState = actUp(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 4, 4, 4], [4, 4, 4, 4], [null, null, null, null], [null, null, null, null]],
+      final: false,
       score: 32,
     })
   })
@@ -227,6 +269,7 @@ describe('act up', () => {
     const newState = actUp(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 4, 4, 4], [2, 2, 2, 2], [null, null, null, null], [null, null, null, null]],
+      final: false,
       score: 16,
     })
   })
@@ -237,6 +280,7 @@ describe('act up', () => {
     const newState = actUp(state)
     expect(newState.toJS()).toEqual({
       board: [[null, 4, 4, 4], [null, 4, 4, 4], [null, null, null, null], [null, null, null, null]],
+      final: false,
       score: 24,
     })
   })
@@ -247,6 +291,7 @@ describe('act up', () => {
     const newState = actUp(state)
     expect(newState.toJS()).toEqual({
       board: [[4, 4, 4, null], [4, 4, 4, null], [null, null, null, null], [null, null, null, null]],
+      final: false,
       score: 24,
     })
   })
@@ -281,6 +326,7 @@ describe('transform board rows', () => {
     const newState = swapBoard(state)
     expect(newState.toJS()).toEqual({
       board: [[1, 3], [2, 4]],
+      final: false,
       score: 0,
     })
   })

@@ -34,5 +34,6 @@ export const init = ({ size, startTiles, random }): State => {
   return Map({
     board,
     score: 0,
+    final: false,
   })
 }

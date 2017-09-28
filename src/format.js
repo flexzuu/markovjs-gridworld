@@ -1,11 +1,13 @@
+import { padStart } from 'lodash'
+
+export const board = state =>
+  state.get('board').map(r => r.map(t => (t ? padStart(t, 4) : '    ')).join(' ')).join('\n')
+
 export const episode = e =>
   [...e].map(e => {
     const data = {
       action: e.action,
-      board: e.nextGameState
-        .get('board')
-        .map(r => r.map(t => (t ? t.toString().padStart(4) : '    ')).join(' '))
-        .join('\n'),
+      board: board(e.nextGameState),
       score: e.nextGameState.get('score'),
       reward: e.reward,
     }

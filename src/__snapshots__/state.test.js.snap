@@ -58,6 +58,7 @@ Immutable.Map {
     ],
   ],
   "score": 0,
+  "final": false,
 }
 `;
 

@@ -75,6 +75,8 @@ export default (state: State, action: Action): State => {
     case ACTIONS.UP:
       newState = actUp(state)
       break
+    case 'END':
+      return state.set('final', true)
     default:
       newState = state
       break
