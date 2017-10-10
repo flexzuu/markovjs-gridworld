@@ -4,6 +4,7 @@ import { random } from 'lodash'
 import type { Action, State } from './types'
 import { ACTIONS } from './constants'
 import { placeRandomTilesFactory } from './state'
+import { log } from './ipc'
 
 const placeRandomTile = state =>
   state.update('board', board => placeRandomTilesFactory(random)({ numberOfRandomTiles: 1, board }))
@@ -76,10 +77,15 @@ export default (state: State, action: Action): State => {
       newState = actUp(state)
       break
     case 'END':
-      return state.set('final', true)
+      newState = state.set('final', true)
+      break
     default:
       newState = state
       break
   }
-  return placeRandomTile(newState)
+  if (!newState.get('final')) {
+    newState = placeRandomTile(newState)
+  }
+  log(newState.toJS())
+  return newState
 }
