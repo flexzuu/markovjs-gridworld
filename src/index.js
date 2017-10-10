@@ -14,7 +14,7 @@ import { init as initIPC } from './ipc'
 
 const loggerProcess = initIPC()
 
-setTimeout(() => {
+loggerProcess.on('message', () => {
   const game = { actions, reward, final, act }
   const initial = state.init({
     size: 4,
@@ -46,5 +46,6 @@ setTimeout(() => {
   console.log(`Mean: ${mean(results)}`)
   console.log(`Max: ${max(results)}`)
   console.log(sparkly(results))
-}, 10000)
+})
+
 loggerProcess.kill(0)
