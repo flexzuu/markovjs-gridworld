@@ -2,6 +2,8 @@
 import type { Action, State } from './types'
 import { ACTIONS } from './constants'
 import { create } from './state'
+import { log } from './ipc'
+import { stateTokenizer } from './format'
 
 export default ({ board, robson: { r, c }, goals, hazards }: State, action: Action): State => {
   const dr =
@@ -22,11 +24,12 @@ export default ({ board, robson: { r, c }, goals, hazards }: State, action: Acti
   const index = nextR * board.cols + nextC
   const nextDead = hazards.includes(index)
   const nextGoals = goals.filter(g => g !== index)
-
-  return create({
+  const newState = create({
     robson: { r: nextR, c: nextC, dead: nextDead },
     goals: nextGoals,
     hazards,
     board,
   })
+  log({ board: stateTokenizer(newState), alive: !newState.robson.dead, action })
+  return newState
 }

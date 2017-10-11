@@ -10,7 +10,7 @@ const ACTIONS: { [string]: Action } = {
 
 const ENTITIES: { [string]: Entity } = {
   EMPTY: '⬚',
-  GOAL: '❤',
+  GOAL: '💓',
   HAZARD: '💀',
   ROBSON: '🤖',
 }

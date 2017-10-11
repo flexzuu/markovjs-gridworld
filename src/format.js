@@ -1,6 +1,6 @@
 import { ENTITIES } from './constants'
 
-const stateTokenizer = ({ goals, hazards, board: { rows, cols }, robson: { r, c, dead } }) =>
+export const stateTokenizer = ({ goals, hazards, board: { rows, cols }, robson: { r, c, dead } }) =>
   [...Array(rows).keys()].map((row: number) =>
     [...Array(cols).keys()].map(
       (col: number) =>
